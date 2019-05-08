@@ -1,0 +1,16 @@
+
+.bg{background: url('../images/2.jpeg') no-repeat;   background-size: cover;   width: 100%;}
+.form-container{color: #fff; border:0px solid #fff; padding:50px 60px; margin-top:20vh;
+-webkit-box-shadow: -4px 2px 29px 3px rgba(0,0,0,0.75);
+-moz-box-shadow: -4px 2px 29px 3px rgba(0,0,0,0.75);
+box-shadow: -4px 2px 29px 3px rgba(0,0,0,0.75);}
+
+.jumbo-container{margin-top:35vh;}
+
+.cam{margin-top:10vh;}
+
+input.credFailed{border-color:red; border-width:1.5px;}
+
+input.credFailed:focus{border-color:red !important; border-width:1.5px;}
+
+div.credFailed{color:red;}

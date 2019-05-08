@@ -1,0 +1,106 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+        <meta charset="utf-8">
+        <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+        <link href="css/global.css" type="text/css" rel="stylesheet">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+    <script>
+        var database;
+        function configuredb(){
+            var firebaseConfig = {
+                apiKey: "AIzaSyDDL5kjqDbiVqBaAxSzJ7lk2scdpf82wrM",
+                authDomain: "expression-db.firebaseapp.com",
+                databaseURL: "https://expression-db.firebaseio.com",
+                projectId: "expression-db",
+                storageBucket: "expression-db.appspot.com",
+                messagingSenderId: "587015352878"
+              };
+            firebase.initializeApp(firebaseConfig);
+            console.log(firebase);
+            database = firebase.firestore();
+        };
+        configuredb();
+    </script>
+    <!--<script type="text/javascript" src="./add_values_to_db.js"></script>-->
+    
+</head>
+<body class="container bg">
+    <div style="display: block;height: 500px;width: 500px;margin:auto;margin-top:100px">
+        <canvas id="barChart" width="500" height="500" ></canvas>
+    </div>
+    <script>
+        
+        function getValuesFromdb(){
+            var feedbackNum ={
+                'joy':0,
+                'sorrow':0,
+                'anger':0,
+                'surprise':0
+            };
+            database.collection("Feedback").get().then(function(alldocs){
+                alldocs.forEach(function(doc){
+                     var docData = doc.data();
+                     var feedback = docData["expressions"];
+                     for(var param in feedback){
+                        if (feedback[param] == "LIKELY" || feedback[param] == "VERY_LIKELY" ){
+                            feedbackNum[param] += 1;
+                            break;
+                        }
+                     }
+                });
+                generateGraph(feedbackNum);
+            }).catch(function(error){
+                console.log("Error getting document:", error);
+            });
+        };
+        
+        function generateGraph(expressionValues){
+            var ctx = document.getElementById('barChart');
+           // configuredb();
+           // var expressionValues = getValuesFromdb();
+           Chart.defaults.global.defaultFontColor = 'black';
+            console.log("expressionValues..."+JSON.stringify(expressionValues));
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Joy', 'Sorrow', 'Anger', 'Surprise'],
+                    datasets: [{
+                        label: 'customer reviews',
+                        data: [parseInt(expressionValues.joy), parseInt(expressionValues.sorrow), parseInt(expressionValues.anger), parseInt(expressionValues.surprise)],
+                       //data:[12,12,8,10],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)'
+                            
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+        getValuesFromdb();
+</script>
+</body>
+</html>

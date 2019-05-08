@@ -1,0 +1,29 @@
+<html>
+<head>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<script src ="./CameraAccess.js"></script>
+</head>
+
+<body>
+	<div id = "ReviewScreen" style ="width:1000px">
+		<p>
+			Do you want to give a review of the service you just used?
+		</p>
+		<!--<input type = "button" value = "Yes">
+		<input type = "button" value = "No">-->
+		<br>
+		<div>
+			<span> Terms and Conditions:</span><br>
+			<span style ="width:100%"> Your picture will be taken and your review is determined based on your facial expression. However, we don't store this picture in our database and we just use it to determine your review. Please press accept if you wish to continue</span>
+			<br><br><br>
+			<input type = "button" value = "accept" onclick ="triggerCamera();">
+		</div>
+	</div>
+	<div id ="CameraAccess" style="visibility:hidden">
+		<video id="video"></video>
+		<canvas id="canvas"></canvas><br>
+		<button onclick="snap();">Snap</button>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+        <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+        <!--<script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-app.js"></script>-->
+
+        <!-- Add Firebase products that you want to use -->
+        <!--<script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-firestore.js"></script>-->
+        <script src ="js/CameraAccess.js"></script>
+        <title>Speech to text converter</title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.min.css"/>
+        <style type="text/css">
+            body{
+                font-family: verdana;
+            }
+            #result{
+                height: 200px;
+                border: 1px solid #ccc;
+                padding: 10px;
+                box-shadow: 0 0 10px 0 #bbb;
+                margin-bottom: 30px;
+                font-size: 14px;
+                line-height: 25px;
+            }
+            .image {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 40%;
+                }
+
+          .microphone{
+                font-size: 20px;
+                position: absolute;
+                top: 240px;
+                left: 50%;
+
+            }
+            .updatedb{
+                font-size:20px;
+                position: absolute;
+                top: 240px;
+                left: 60%;
+            }
+            div{
+                 margin-bottom:10px;
+            }
+        </style>
+    </head>
+    <body>
+         
+        <h1 align="center">Tell us more about your experience</h1>
+
+        <!-- <form id="form" onsubmit="return false;">
+            Enter bill number<br><input  type="text" id="userInput" />
+            <input  type="submit" onclick="othername();" />
+        </form> -->
+            
+        <div></div>
+        <div></div>
+        <div id="result"></div>
+        <button onclick="speechTotext();" class ="microphone"><i class="fa fa-microphone"></i></button>
+        <button onclick="sendTodb();" class="updatedb">Submit review</button>
+        <script type="text/javascript">
+        var r= document.getElementById("result"); 
+        </script>
+
+    <div class="image">
+        <img src="images/speechpagebackground.png">
+    </div>
+   
+    </body>
+</html>
